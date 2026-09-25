@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Manual do Colaborador — Instituto CAIS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0e2a47;
+  --navy-2:#153a5f;
+  --blue:#3f7fc4;
+  --gold:#b8935a;
+  --paper:#f4f5f3;
+  --card:#ffffff;
+  --ink:#16232f;
+  --ink-soft:#5b6b78;
+  --line:#e2e5e2;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html,body{height:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Inter',system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0c1620; --card:#132234; --ink:#eef2f5; --ink-soft:#9fb0bd; --line:#22384c;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0c1620; --card:#132234; --ink:#eef2f5; --ink-soft:#9fb0bd; --line:#22384c;
+}
+
+/* Header */
+.topbar{
+  background:linear-gradient(120deg,var(--navy) 0%,var(--navy-2) 100%);
+  color:#fff;
+  padding:18px 24px calc(18px + env(safe-area-inset-top,0px));
+  padding-top:calc(18px + env(safe-area-inset-top,0px));
+  display:flex;align-items:center;gap:14px;
+  position:sticky;top:0;z-index:20;
+  box-shadow:0 2px 12px rgba(0,0,0,.15);
+}
+.mark{display:flex;align-items:center;gap:9px;font-family:'Fraunces',serif;}
+.mark svg{width:30px;height:30px;flex:none}
+.mark .name{font-size:1.05rem;letter-spacing:.02em}
+.mark .name b{font-weight:600}
+.topbar .title{
+  margin-left:auto;
+  font-size:.78rem;
+  color:#bcd0e2;
+  letter-spacing:.03em;
+  text-align:right;
+  display:none;
+}
+@media(min-width:640px){.topbar .title{display:block}}
+.menu-btn{
+  display:none;
+  margin-left:auto;
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.25);
+  color:#fff;border-radius:8px;
+  padding:8px 12px;font-size:.85rem;font-family:inherit;
+}
+@media(max-width:860px){
+  .menu-btn{display:inline-flex;align-items:center;gap:6px}
+  .topbar .title{display:none}
+}
+
+/* Layout */
+.wrap{display:flex;max-width:1180px;margin:0 auto;min-height:calc(100vh - 66px);}
+nav.side{
+  width:280px;flex:none;
+  padding:26px 14px 40px;
+  border-right:1px solid var(--line);
+}
+.group-label{
+  font-size:.72rem;color:var(--ink-soft);
+  padding:14px 12px 6px;
+  letter-spacing:.02em;
+}
+.group-label:first-child{padding-top:2px}
+button.item{
+  display:block;width:100%;text-align:left;
+  background:none;border:none;cursor:pointer;
+  font-family:inherit;color:var(--ink);
+  font-size:.92rem;padding:9px 12px;border-radius:9px;
+  line-height:1.35;
+}
+button.item:hover{background:var(--card);}
+button.item.active{
+  background:var(--card);
+  color:var(--navy-2);
+  font-weight:600;
+  box-shadow:inset 3px 0 0 var(--gold);
+}
+:root[data-theme="dark"] button.item.active, body.dark-auto button.item.active{color:#9fc4ee}
+
+main.content{
+  flex:1;min-width:0;
+  padding:38px clamp(20px,4vw,54px) 80px;
+}
+.crumb{color:var(--ink-soft);font-size:.8rem;margin-bottom:8px}
+h1.page-title{
+  font-family:'Fraunces',serif;
+  font-weight:500;
+  font-size:clamp(1.5rem,3vw,2.05rem);
+  margin:0 0 6px;
+  color:var(--navy);
+}
+:root[data-theme="dark"] h1.page-title{color:#e8eef4}
+.lede{color:var(--ink-soft);font-size:.98rem;margin:0 0 28px;max-width:60ch;line-height:1.55}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:22px 24px;
+  margin-bottom:16px;
+}
+.card h2{
+  font-family:'Fraunces',serif;font-weight:500;
+  font-size:1.08rem;margin:0 0 10px;color:var(--navy-2);
+}
+:root[data-theme="dark"] .card h2{color:#a9c8e6}
+.card p{margin:0 0 12px;line-height:1.6;font-size:.95rem;color:var(--ink)}
+.card p:last-child{margin-bottom:0}
+.card ul{margin:0 0 10px;padding-left:20px;line-height:1.6;font-size:.95rem}
+.card li{margin-bottom:6px}
+.badge{
+  display:inline-block;font-size:.72rem;color:var(--gold);
+  border:1px solid var(--gold);border-radius:20px;padding:2px 10px;
+  margin-bottom:14px;letter-spacing:.02em;
+}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.grid2{grid-template-columns:1fr}}
+table.rules{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:4px}
+table.rules th,table.rules td{
+  text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top;
+}
+table.rules th{color:var(--ink-soft);font-weight:600;font-size:.78rem;text-transform:none}
+table.rules tr:last-child td{border-bottom:none}
+
+/* tabs for modality sections */
+.tabbar{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.tab{
+  border:1px solid var(--line);background:var(--card);color:var(--ink);
+  border-radius:9px;padding:8px 14px;font-family:inherit;font-size:.86rem;cursor:pointer;
+}
+.tab.on{background:var(--navy-2);border-color:var(--navy-2);color:#fff}
+.subpane{display:none}
+.subpane.on{display:block}
+
+/* Home grid */
+.home-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.home-card{
+  background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:18px;text-align:left;cursor:pointer;font-family:inherit;color:var(--ink);
+}
+.home-card .k{font-size:.72rem;color:var(--gold);display:block;margin-bottom:8px;letter-spacing:.02em}
+.home-card .t{font-family:'Fraunces',serif;font-size:1.02rem;color:var(--navy-2);font-weight:500}
+:root[data-theme="dark"] .home-card .t{color:#a9c8e6}
+.home-card .d{font-size:.83rem;color:var(--ink-soft);margin-top:6px;line-height:1.45}
+
+footer.foot{
+  border-top:1px solid var(--line);
+  padding:18px clamp(20px,4vw,54px) calc(24px + env(safe-area-inset-bottom,0px));
+  font-size:.78rem;color:var(--ink-soft);
+  max-width:1180px;margin:0 auto;
+}
+
+/* mobile drawer */
+@media(max-width:860px){
+  nav.side{
+    position:fixed;top:0;left:0;bottom:0;z-index:30;
+    background:var(--paper);
+    width:280px;max-width:82vw;
+    transform:translateX(-100%);
+    transition:transform .25s ease;
+    padding-top:calc(20px + env(safe-area-inset-top,0px));
+    overflow-y:auto;
+    box-shadow:2px 0 20px rgba(0,0,0,.15);
+  }
+  nav.side.open{transform:translateX(0)}
+  .scrim{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:25}
+  .scrim.on{display:block}
+  main.content{padding-top:26px}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="mark">
+    <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <polygon points="30,4 52,17 52,43 30,56 8,43 8,17" fill="none" stroke="#fff" stroke-width="3.5"/>
+      <polygon points="22,20 22,40 40,30" fill="#3f7fc4"/>
+    </svg>
+    <span class="name">Instituto <b>CAIS</b></span>
+  </div>
+  <div class="title">Manual do Colaborador · rev. set/2026</div>
+  <button class="menu-btn" id="menuBtn">☰ Menu</button>
+</header>
+
+<div class="scrim" id="scrim"></div>
+
+<div class="wrap">
+  <nav class="side" id="side"></nav>
+  <main class="content" id="content"></main>
+</div>
+
+<footer class="foot">
+  Instituto CAIS · administrativo@institutocais.org.br · Av. Santos Dumont, 2456 – 2001, Bairro Aldeota, Fortaleza – CE, CEP 60150-161.
+</footer>
+
+<script>
+const T = {
+  home: {group:null,label:'Início'},
+
+  aniversario:{group:'Benefícios de todos', label:'Day Off de Aniversário'},
+  happyfriday:{group:'Benefícios de todos', label:'Happy Friday'},
+  remoto:{group:'Benefícios de todos', label:'Trabalho Remoto e Híbrido'},
+
+  conduta:{group:'Convivência e Segurança', label:'Conduta e Boas Práticas'},
+  seguranca:{group:'Convivência e Segurança', label:'Segurança da Informação'},
+  equipamentos:{group:'Convivência e Segurança', label:'Equipamentos Institucionais'},
+  dados:{group:'Convivência e Segurança', label:'Atualização de Dados'},
+
+  clt:{group:'Por modalidade de vínculo', label:'Colaboradores CLT'},
+  estagio:{group:'Por modalidade de vínculo', label:'Estagiários'},
+  bolsa:{group:'Por modalidade de vínculo', label:'Bolsistas de Pesquisa'},
+
+  encerramento:{group:'Encerramento', label:'Devoluções e Quadro-Resumo'},
+};
+
+const groups = [...new Set(Object.values(T).map(t=>t.group).filter(Boolean))];
+
+function renderNav(active){
+  const side = document.getElementById('side');
+  let html = `<button class="item ${active==='home'?'active':''}" data-k="home">🏠 Início</button>`;
+  groups.forEach(g=>{
+    html += `<div class="group-label">${g}</div>`;
+    Object.entries(T).forEach(([k,v])=>{
+      if(v.group===g){
+        html += `<button class="item ${active===k?'active':''}" data-k="${k}">${v.label}</button>`;
+      }
+    });
+  });
+  side.innerHTML = html;
+  side.querySelectorAll('button.item').forEach(b=>b.addEventListener('click',()=>go(b.dataset.k)));
+}
+
+function homeCard(k){
+  const v = T[k];
+  return `<button class="home-card" data-k="${k}"><span class="k">${v.group}</span><span class="t">${v.label}</span></button>`;
+}
+
+const pages = {
+  home: () => `
+    <h1 class="page-title">Manual do Colaborador</h1>
+    <p class="lede">Orientações institucionais do Instituto CAIS. As regras específicas de cada modalidade de vínculo devem ser observadas em conjunto com a legislação vigente, o contrato, o Termo de Compromisso de Estágio ou o instrumento de concessão da bolsa. Clique em um tópico para ver os detalhes.</p>
+    <div class="home-grid">${Object.keys(T).filter(k=>k!=='home').map(homeCard).join('')}</div>
+  `,
+
+  aniversario: () => `
+    <div class="crumb">Benefícios de todos</div>
+    <h1 class="page-title">Day Off de Aniversário</h1>
+    <p class="lede">Comemore o seu dia! Todo colaborador tem direito a um dia de folga no mês do seu aniversário.</p>
+    <div class="card">
+      <h2>Quando tirar a folga</h2>
+      <p>De preferência, no próprio dia do aniversário. Caso não seja possível por motivos de trabalho, ela pode ser agendada em outro dia dentro do próprio mês do aniversário.</p>
+    </div>
+    <div class="card">
+      <h2>Como pedir</h2>
+      <p>Combine previamente a data escolhida com a sua liderança direta.</p>
+    </div>
+  `,
+
+  happyfriday: () => `
+    <div class="crumb">Benefícios de todos</div>
+    <h1 class="page-title">Happy Friday</h1>
+    <p class="lede">Um momento de descanso adicional para todo o time.</p>
+    <div class="card">
+      <h2>O benefício</h2>
+      <p>Liberdade para folgar em uma tarde de sexta-feira por mês, totalizando 4 horas de descanso.</p>
+    </div>
+    <div class="card">
+      <h2>Exceção — feriados ponte</h2>
+      <p>Em meses com feriado ponte (emendas de feriados), as 4 horas da Happy Friday são automaticamente utilizadas para compensar as horas não trabalhadas nesse feriado ponte.</p>
+    </div>
+    <div class="card">
+      <h2>Como usar</h2>
+      <p>Alinhe com o seu líder com antecedência, para garantir a cobertura das demandas da equipe.</p>
+    </div>
+  `,
+
+  remoto: () => `
+    <div class="crumb">Benefícios de todos</div>
+    <h1 class="page-title">Trabalho Remoto e Híbrido</h1>
+    <p class="lede">A modalidade de trabalho varia conforme a função, as atividades previstas e as necessidades de cada projeto — presencial, remota ou híbrida.</p>
+    <div class="card">
+      <p>Algumas funções permitem atuação remota; outras, pela natureza das atividades, exigem atuação presencial.</p>
+      <p>A modalidade híbrida pode ser adotada mediante alinhamento prévio com a liderança ou gestor do projeto, considerando as atividades e a disponibilidade de espaço e infraestrutura para o trabalho presencial.</p>
+      <p>A definição da modalidade aplicável a cada profissional é estabelecida de acordo com as características da função e do projeto, sempre em alinhamento com a liderança responsável.</p>
+    </div>
+  `,
+
+  conduta: () => `
+    <div class="crumb">Convivência e Segurança</div>
+    <h1 class="page-title">Conduta, Convivência e Boas Práticas</h1>
+    <p class="lede">Um ambiente saudável é construído por atitudes simples praticadas diariamente.</p>
+    <div class="card">
+      <h2>Princípios</h2>
+      <p>Respeito, colaboração, responsabilidade e cuidado com pessoas, espaços e recursos compartilhados fortalecem nossa cultura. A boa convivência é responsabilidade de todos, pautada por respeito, ética, profissionalismo e comunicação clara — independentemente de cargo, função, vínculo ou projeto.</p>
+      <p><strong>Não são toleradas</strong> atitudes de discriminação, assédio, intimidação, constrangimento ou desrespeito.</p>
+    </div>
+    <div class="card">
+      <h2>Espaços compartilhados</h2>
+      <p>Todos somos responsáveis pela conservação e organização de estações de trabalho, salas de reunião, copa e demais ambientes de uso coletivo — deixe-os limpos e organizados para a próxima pessoa.</p>
+    </div>
+    <div class="card">
+      <h2>No escritório</h2>
+      <ul>
+        <li>Valorizamos pontualidade, colaboração e respeito ao ambiente compartilhado.</li>
+        <li>Use fones de ouvido em reuniões virtuais realizadas no escritório, sempre que possível.</li>
+        <li>Mantenha o volume de conversas e reuniões em nível adequado ao ambiente.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>Individualidade e cuidado pessoal</h2>
+      <p>Respeitamos a diversidade de estilos e a individualidade de cada pessoa, com adequação ao ambiente profissional. Cuidados com higiene pessoal, higiene bucal, roupas e objetos pessoais contribuem para o bem-estar coletivo — inclusive atenção ao uso de fragrâncias e outros odores que possam gerar desconforto em ambientes compartilhados.</p>
+    </div>
+  `,
+
+  seguranca: () => `
+    <div class="crumb">Convivência e Segurança</div>
+    <h1 class="page-title">Segurança e Confidencialidade das Informações</h1>
+    <div class="card">
+      <p>Todos são responsáveis pela proteção das informações do Instituto, dos projetos e de seus parceiros.</p>
+      <ul>
+        <li>Senhas não devem ser compartilhadas.</li>
+        <li>Computadores devem ser bloqueados ao se ausentar da estação de trabalho.</li>
+        <li>Informações, documentos e dados institucionais devem ser tratados com confidencialidade e responsabilidade.</li>
+        <li>Devem ser utilizadas apenas as ferramentas e os recursos autorizados pelo Instituto.</li>
+      </ul>
+    </div>
+  `,
+
+  equipamentos: () => `
+    <div class="crumb">Convivência e Segurança</div>
+    <h1 class="page-title">Equipamentos e Recursos Institucionais</h1>
+    <div class="card">
+      <p>A disponibilização de equipamentos ocorre conforme necessidade, disponibilidade e natureza das atividades. A retirada está condicionada à assinatura do Termo de Responsabilidade, que formaliza a posse e as responsabilidades de utilização, conservação e devolução do bem.</p>
+      <p>O profissional é responsável por zelar pelo equipamento durante todo o período em que estiver sob sua responsabilidade e deve comunicar à equipe responsável qualquer problema, dano, perda ou necessidade de suporte.</p>
+    </div>
+  `,
+
+  dados: () => `
+    <div class="crumb">Convivência e Segurança</div>
+    <h1 class="page-title">Atualização de Dados e Canais de Comunicação</h1>
+    <div class="card">
+      <p>É responsabilidade de cada profissional manter seus dados pessoais e profissionais sempre atualizados — telefone, e-mail, endereço e formação acadêmica e profissional. O Currículo Lattes também deve ser mantido atualizado, especialmente após conclusão de cursos, obtenção de títulos, participação em projetos e publicações.</p>
+    </div>
+    <div class="card">
+      <h2>Para quem falar</h2>
+      <ul>
+        <li><strong>Administrativo / Departamento Pessoal</strong> — administrativo@institutocais.org.br — assuntos administrativos e de DP.</li>
+        <li><strong>Recursos Humanos</strong> — rh@institutocais.org.br — pessoas, processos de RH e demais orientações da área.</li>
+      </ul>
+      <p>Sempre que necessário, busque também orientação junto à liderança ou gestor responsável pelo projeto.</p>
+    </div>
+  `,
+
+  clt: () => `
+    <div class="crumb">Por modalidade de vínculo</div>
+    <h1 class="page-title">Colaboradores CLT</h1>
+    <p class="lede">Regras de jornada, ausências, férias, benefícios e demais direitos trabalhistas — observando também eventual convenção ou acordo coletivo aplicável.</p>
+    <div class="tabbar" id="cltTabs"></div>
+    <div id="cltPanes"></div>
+  `,
+
+  estagio: () => `
+    <div class="crumb">Por modalidade de vínculo</div>
+    <h1 class="page-title">Estagiários</h1>
+    <p class="lede">Regras específicas aplicáveis aos profissionais vinculados por Termo de Compromisso de Estágio, observando a legislação de estágio, a instituição de ensino e as condições do termo.</p>
+    <div class="card">
+      <h2>Jornada e frequência</h2>
+      <p>A jornada deve observar a carga horária e os horários definidos no Termo de Compromisso de Estágio. Qualquer alteração deve ser previamente alinhada com a supervisão e, quando necessário, formalizada junto à instituição de ensino. Em períodos de avaliação acadêmica, a jornada pode ser reduzida nos termos previstos na legislação e no Termo.</p>
+    </div>
+    <div class="card">
+      <h2>Ausências e acompanhamento acadêmico</h2>
+      <p>Ausências e alterações de jornada devem ser comunicadas à liderança ou supervisor com a maior antecedência possível, observando as condições do estágio e da instituição de ensino.</p>
+    </div>
+    <div class="card">
+      <h2>Bolsa, auxílio e seguro</h2>
+      <p>O estágio não obrigatório conta com bolsa-auxílio e auxílio-transporte, conforme o Termo de Compromisso. O estágio conta com seguro contra acidentes pessoais. O estágio não gera, por si só, vínculo empregatício, desde que observados os requisitos legais e as condições do Termo.</p>
+    </div>
+    <div class="card">
+      <h2>Recesso</h2>
+      <p>30 dias de recesso quando o estágio tiver duração igual ou superior a 12 meses; proporcional para períodos inferiores. No estágio não obrigatório, com bolsa-auxílio, o recesso é remunerado. O período deve ser alinhado com a liderança/supervisor e comunicado ao setor Administrativo.</p>
+    </div>
+    <div class="card">
+      <h2>Encerramento</h2>
+      <p>Segue as condições do Termo de Compromisso, a legislação aplicável e os procedimentos administrativos do Instituto. A intenção de encerramento deve ser comunicada previamente à liderança e formalizada ao setor responsável.</p>
+    </div>
+  `,
+
+  bolsa: () => `
+    <div class="crumb">Por modalidade de vínculo</div>
+    <h1 class="page-title">Bolsistas de Pesquisa</h1>
+    <p class="lede">Regras específicas aplicáveis aos bolsistas, cuja atuação é vinculada ao projeto, plano de trabalho e termo de concessão da bolsa.</p>
+    <div class="card">
+      <h2>Jornada, dedicação e plano de trabalho</h2>
+      <ul>
+        <li>Manhã: das 8h às 13h.</li>
+        <li>Tarde: das 13h às 18h.</li>
+      </ul>
+      <p>Os horários têm flexibilidade e podem variar conforme as atividades e a dinâmica do projeto, mediante alinhamento prévio com a liderança. A carga horária da bolsa não deve ser tratada como jornada CLT — horas extras, banco de horas, férias e aviso prévio não se aplicam automaticamente à condição de bolsista.</p>
+    </div>
+    <div class="card">
+      <h2>Ausências e afastamentos</h2>
+      <p>Definidos em conjunto com a liderança e/ou responsável pelo projeto, buscando solução compatível com as necessidades do projeto e adequada para ambas as partes. O bolsista deve comunicar previamente qualquer situação que impacte sua participação, mantendo a liderança informada sobre o período de ausência e a previsão de retorno.</p>
+    </div>
+    <div class="card">
+      <h2>Relatório mensal de atividades</h2>
+      <p>Todos os bolsistas devem enviar o relatório mensal até o dia 10 do mês corrente, pela plataforma Farol: <em>farol.institutocais.org.br/login</em>. O relatório deve registrar apenas atividades efetivamente executadas — reuniões, isoladamente, não contam como atividade executada. Dúvidas de preenchimento: procure sua liderança ou o RH.</p>
+    </div>
+    <div class="card">
+      <h2>Encerramento da bolsa</h2>
+      <p>Pode ocorrer pelo término previsto no instrumento, conclusão ou alteração do projeto, iniciativa do bolsista ou decisão institucional. O processo deve ser comunicado à liderança e formalizado junto ao setor responsável.</p>
+    </div>
+  `,
+
+  encerramento: () => `
+    <div class="crumb">Encerramento</div>
+    <h1 class="page-title">Encerramento, Devoluções e Aplicação das Regras</h1>
+    <div class="card">
+      <p>O encerramento do vínculo pode ocorrer por iniciativa do profissional, do Instituto, ou em decorrência do término do contrato, estágio, bolsa ou projeto. O processo deve ser conduzido em alinhamento com a liderança responsável, Recursos Humanos e/ou Departamento Pessoal.</p>
+    </div>
+    <div class="card">
+      <h2>Devolução de equipamentos e recursos</h2>
+      <p>No encerramento do vínculo devem ser devolvidos todos os equipamentos, materiais, documentos, crachás, acessos ou demais recursos disponibilizados pelo Instituto, garantindo a regularização de todas as pendências antes da conclusão do desligamento.</p>
+    </div>
+    <div class="card">
+      <h2>Quadro-resumo por modalidade</h2>
+      <div style="overflow-x:auto">
+      <table class="rules">
+        <tr><th>Tema</th><th>CLT</th><th>Estágio</th><th>Bolsa de Pesquisa</th></tr>
+        <tr><td>Day Off de aniversário</td><td>Aplicável</td><td>Aplicável</td><td>Aplicável</td></tr>
+        <tr><td>Happy Friday</td><td>Aplicável</td><td>Aplicável</td><td>Aplicável</td></tr>
+        <tr><td>Registro de ponto</td><td>Obrigatório, rotina institucional</td><td>Conforme Termo de Compromisso</td><td>Conforme política/controle de atividades</td></tr>
+        <tr><td>Horas extras / banco de horas</td><td>Aplicáveis nas condições legais e internas</td><td>Não se aplicam como regime CLT</td><td>Não se aplicam automaticamente</td></tr>
+        <tr><td>Férias / recesso</td><td>Férias CLT</td><td>Recesso de estágio</td><td>15 dias a cada 12 meses, política interna</td></tr>
+        <tr><td>13º salário / FGTS</td><td>Aplicáveis</td><td>Não são direitos do estágio, por si só</td><td>Não são direitos da bolsa, por si só</td></tr>
+        <tr><td>Licença-maternidade/paternidade</td><td>Conforme legislação CLT</td><td>Conforme legislação de estágio, quando aplicável</td><td>Conforme instrumento da bolsa; não se presume direito CLT</td></tr>
+        <tr><td>Encerramento</td><td>Conforme CLT e DP/RH</td><td>Conforme Termo de Compromisso</td><td>Conforme instrumento da bolsa</td></tr>
+      </table>
+      </div>
+      <p style="margin-top:12px">Em caso de conflito entre este manual e norma legal, convenção/acordo coletivo, contrato, Termo de Compromisso de Estágio ou instrumento de concessão da bolsa, prevalece a regra juridicamente aplicável à modalidade de vínculo, observada eventual condição mais favorável quando cabível.</p>
+    </div>
+  `,
+};
+
+// CLT sub-tabs content
+const cltTabs = [
+  {k:'ben', label:'Benefícios', html:`<div class="card"><p>Plano de saúde, plano odontológico, auxílio alimentação e auxílio mobilidade.</p></div>`},
+  {k:'jor', label:'Jornada e ponto', html:`<div class="card"><p>A jornada ocorre, geralmente, das 8h às 17h, observando a carga horária do contrato. Há flexibilidade de horários, desde que previamente alinhada com o líder e compatível com as necessidades da equipe/projeto.</p><p>O registro de ponto é obrigatório e deve refletir os horários efetivamente realizados (entrada, saída e intervalos), pela plataforma Flash, seguindo as orientações do Departamento Pessoal.</p></div>`},
+  {k:'banco', label:'Banco de horas', html:`<div class="card"><p>O ponto deve refletir exatamente a jornada realizada, batido somente ao iniciar ou encerrar as atividades. Horas extras só ocorrem mediante autorização prévia do gestor imediato, preferencialmente por e-mail — o banco de horas não autoriza horas extras automaticamente.</p><p>Horas trabalhadas além da jornada, quando autorizadas, devem ser registradas no sistema e não devem ultrapassar 2 horas diárias, ressalvadas hipóteses legais específicas. Compensações, folgas ou redução de jornada devem ser alinhadas com o gestor imediato; acompanhe seu saldo e comunique divergências ao DP.</p></div>`},
+  {k:'aus', label:'Ausências', html:`<div class="card"><h2>Principais hipóteses (art. 473 da CLT)</h2>
+    <table class="rules">
+      <tr><th>Situação</th><th>Direito legal</th></tr>
+      <tr><td>Falecimento</td><td>Até 2 dias consecutivos</td></tr>
+      <tr><td>Casamento</td><td>Até 3 dias consecutivos</td></tr>
+      <tr><td>Nascimento, adoção ou guarda compartilhada</td><td>5 dias consecutivos</td></tr>
+      <tr><td>Doação voluntária de sangue</td><td>1 dia a cada 12 meses, mediante comprovação</td></tr>
+      <tr><td>Alistamento eleitoral</td><td>Até 2 dias, consecutivos ou não</td></tr>
+      <tr><td>Serviço militar</td><td>Pelo período necessário</td></tr>
+      <tr><td>Provas de vestibular</td><td>Nos dias das provas, mediante comprovação</td></tr>
+      <tr><td>Comparecimento a juízo</td><td>Pelo tempo necessário</td></tr>
+      <tr><td>Acompanhamento da gestante</td><td>Até 6 consultas/exames durante a gravidez</td></tr>
+      <tr><td>Acompanhamento de filho</td><td>1 dia/ano, filho de até 6 anos, em consulta médica</td></tr>
+      <tr><td>Exames preventivos de câncer</td><td>Até 3 dias a cada 12 meses, mediante comprovação</td></tr>
+    </table>
+    <p style="margin-top:10px">Procedimento: sempre que possível, comunique a ausência previamente à liderança; em imprevistos, assim que possível. Documento comprobatório deve ser encaminhado ao Administrativo/DP.</p></div>`},
+  {k:'saude', label:'Atestados', html:`<div class="card"><p>Nos afastamentos por motivo de saúde, os atestados médicos devem ser encaminhados ao setor Administrativo/Departamento Pessoal, além da comunicação à liderança. Mantenha sua liderança informada sobre o período de ausência e, quando aplicável, a previsão de retorno.</p></div>`},
+  {k:'mat', label:'Licença-maternidade', html:`<div class="card"><p>Licença-maternidade de <strong>120 dias</strong>, sem prejuízo do emprego e do salário. O afastamento pode começar entre o 28º dia anterior ao parto e a data do parto, mediante atestado médico.</p><p>Estabilidade provisória desde a confirmação da gravidez até 5 meses após o parto. Também assegurada em adoção ou guarda judicial. Em internação hospitalar (mãe ou recém-nascido) superior a 2 semanas por complicações do parto, a licença pode se estender em até 120 dias após a alta, conforme a Lei nº 15.222/2025.</p><p>Após o retorno, intervalos para amamentação até os 6 meses do filho. O Instituto CAIS não participa do Programa Empresa Cidadã, portanto a licença é de 120 dias, sem a prorrogação de 60 dias do programa.</p></div>`},
+  {k:'pat', label:'Licença-paternidade', html:`<div class="card"><p>Assegurada em razão de nascimento, adoção ou guarda judicial, sem prejuízo do emprego e do salário. Em 2026, o período é de <strong>5 dias</strong>. A Lei nº 15.371/2026 estabelece ampliação escalonada a partir de 2027 (10 dias), 2028 (15 dias) e 2029 (20 dias).</p><p>Em nascimento/adoção de criança ou adolescente com deficiência, acréscimo de 1/3 do período legal. O Instituto CAIS não participa do Programa Empresa Cidadã, portanto não se aplica a prorrogação de 15 dias prevista no programa.</p></div>`},
+  {k:'ferias', label:'Férias', html:`<div class="card"><p>Direito a férias após cada período aquisitivo de 12 meses. A concessão é definida pelo empregador e comunicada com antecedência mínima de 30 dias; internamente, recomenda-se programar com antecedência mínima de <strong>40 dias</strong>, alinhando com a liderança.</p><p>Após o alinhamento, envie a solicitação por e-mail ao Administrativo/DP, com cópia à liderança. Férias remuneradas com adicional de 1/3; é possível converter 1/3 do período em abono pecuniário, observados os requisitos legais.</p></div>`},
+  {k:'pag', label:'Pagamentos', html:`<div class="card"><p>Salários pagos até o 5º dia útil. Demais direitos trabalhistas e previdenciários aplicáveis: FGTS, 13º salário, repouso semanal remunerado, feriados, férias e benefícios previstos em lei, contrato ou norma coletiva.</p></div>`},
+  {k:'fim', label:'Encerramento', html:`<div class="card"><p>Pode ocorrer por iniciativa do profissional ou do Instituto. Em caso de pedido de demissão, comunique inicialmente a liderança e formalize a solicitação por escrito ao RH/Administrativo, informando se haverá cumprimento do aviso prévio.</p><p>Aviso prévio de demissão (mensalistas): 30 dias — o período não cumprido pode ser descontado das verbas rescisórias. Na dispensa sem justa causa, o aviso prévio pode ser proporcional ao tempo de serviço, podendo alcançar até 90 dias. O Departamento Pessoal orienta sobre exame demissional, documentos e verbas rescisórias.</p></div>`},
+];
+
+function renderClt(){
+  document.getElementById('cltTabs').innerHTML = cltTabs.map((t,i)=>
+    `<button class="tab ${i===0?'on':''}" data-t="${t.k}">${t.label}</button>`).join('');
+  document.getElementById('cltPanes').innerHTML = cltTabs.map((t,i)=>
+    `<div class="subpane ${i===0?'on':''}" data-p="${t.k}">${t.html}</div>`).join('');
+  document.querySelectorAll('#cltTabs .tab').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('#cltTabs .tab').forEach(b=>b.classList.remove('on'));
+      document.querySelectorAll('#cltPanes .subpane').forEach(p=>p.classList.remove('on'));
+      btn.classList.add('on');
+      document.querySelector(`#cltPanes [data-p="${btn.dataset.t}"]`).classList.add('on');
+    });
+  });
+}
+
+function go(key){
+  const content = document.getElementById('content');
+  content.innerHTML = pages[key] ? pages[key]() : pages.home();
+  if(key==='clt') renderClt();
+  renderNav(key);
+  document.querySelectorAll('.home-card').forEach(c=>c.addEventListener('click',()=>go(c.dataset.k)));
+  window.scrollTo({top:0,behavior:'instant'});
+  closeMenu();
+  try{ localStorage.setItem('cais-manual-last', key); }catch(e){}
+}
+
+// mobile menu
+const side = document.getElementById('side');
+const scrim = document.getElementById('scrim');
+document.getElementById('menuBtn').addEventListener('click',()=>{
+  side.classList.add('open'); scrim.classList.add('on');
+});
+scrim.addEventListener('click', closeMenu);
+function closeMenu(){ side.classList.remove('open'); scrim.classList.remove('on'); }
+
+let start = 'home';
+try{ const last = localStorage.getItem('cais-manual-last'); if(last && T[last]) start = last; }catch(e){}
+go(start);
+</script>
+</body>
+</html>
